@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
+@EqualsAndHashCode(callSuper= false, exclude="ingredients")
 @Entity
 public class Recipe {
 
