@@ -1,7 +1,5 @@
 package guru.springframework.springrecipe5app.domain;
 
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +10,7 @@ class CategoryTest {
     Category category;
 
     @BeforeEach()
-    public void setup() {
+    public void setUp() {
         category = new Category();
     }
 
