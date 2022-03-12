@@ -1,5 +1,7 @@
 package guru.springframework.springrecipe5app.services;
 
+import guru.springframework.springrecipe5app.converters.RecipeCommandToRecipe;
+import guru.springframework.springrecipe5app.converters.RecipeToRecipeCommand;
 import guru.springframework.springrecipe5app.domain.Recipe;
 import guru.springframework.springrecipe5app.repositories.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +19,8 @@ import static org.mockito.Mockito.*;
 class RecipeServiceImplTest {
 
     RecipeServiceImpl recipeService;
+    RecipeCommandToRecipe recipeCommandToRecipe;
+    RecipeToRecipeCommand recipeToRecipeCommand;
 
     @Mock
     RecipeRepository recipeRepository;
@@ -25,7 +29,7 @@ class RecipeServiceImplTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
     @Test
