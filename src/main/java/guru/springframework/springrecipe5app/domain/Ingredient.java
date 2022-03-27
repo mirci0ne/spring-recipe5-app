@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Data
-@EqualsAndHashCode(callSuper= false, exclude="recipe")
+@Getter
+@Setter
+@EqualsAndHashCode(exclude = {"recipe"})
 @Entity
 public class Ingredient {
 
@@ -26,12 +27,11 @@ public class Ingredient {
     public Ingredient() {
     }
 
-    @Autowired
     public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom) {
         this.description = description;
         this.amount = amount;
         this.uom = uom;
-    } //instead of passing Recipe by constructor, I did the bilateral relationship in line 128 in Recipe.java.
+    }
 
     public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom, Recipe recipe) {
         this.description = description;
