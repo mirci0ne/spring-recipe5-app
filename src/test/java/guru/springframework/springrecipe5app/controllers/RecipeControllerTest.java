@@ -62,7 +62,15 @@ class RecipeControllerTest {
     }
 
     @Test
-    public void testGetNewRecipeForm() throws Exception{
+    public void testGetRecipeNumberFormatException() throws Exception {
+
+        mockMvc.perform(get("/recipe/asdf/show"))
+                .andExpect(status().isBadRequest())
+                .andExpect(view().name("400error"));
+    }
+
+    @Test
+    public void testGetNewRecipeForm() throws Exception {
         RecipeCommand command = new RecipeCommand();
 
         mockMvc.perform(get("/recipe/new"))
@@ -82,6 +90,7 @@ class RecipeControllerTest {
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("id", "")
                         .param("description", "some string")
+                        .param("directions", "some directions")
                 )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/recipe/2/show"));
@@ -95,11 +104,12 @@ class RecipeControllerTest {
         when(recipeService.saveRecipeCommand(any())).thenReturn(command);
 
         mockMvc.perform(post("/recipe")
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("id","")
-                .param("description","some string"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/recipe/2/show"));
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("id", "")
+                        .param("cookTime", "3000")
+
+                )
+                .andExpect(status().is3xxRedirection());
     }
 
     @Test
@@ -122,13 +132,5 @@ class RecipeControllerTest {
                 .andExpect(view().name("redirect:/"));
 
         verify(recipeService, times(1)).deleteById(anyLong());
-    }
-
-    @Test
-    public void testGetRecipeNumberFormatException() throws Exception {
-
-        mockMvc.perform(get("/recipe/asfd/show"))
-                .andExpect(status().isBadRequest())
-                .andExpect(view().name("400error"));
     }
 }
